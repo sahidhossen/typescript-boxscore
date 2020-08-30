@@ -1,4 +1,4 @@
-# The Boxscore Challenge
+# The Boxscore
 
 ## This project include both NodeJS server `(backend)` and ReactJS APP `(frontend)` for show boxscore data.
 
