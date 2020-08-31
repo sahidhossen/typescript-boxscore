@@ -54,7 +54,7 @@ router.get("/:game_id", (req, res) => __awaiter(void 0, void 0, void 0, function
             const newCacheScore = new entities_1.Cache(req.params.game_id, JSON.stringify(result), 15);
             yield mikro_orm_config_1.DI.orm.em.persistAndFlush(newCacheScore);
         }
-        res.json({ success: true, data: result });
+        return res.json({ success: true, data: result });
     }
     catch (e) {
         return res.status(400).json({ message: e.message, success: false });
@@ -66,7 +66,7 @@ router.get("/score/:id", (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (!gameScore) {
             return res.status(404).json({ message: "game score not found" });
         }
-        res.json({ success: true, data: gameScore });
+        return res.json({ success: true, data: gameScore });
     }
     catch (e) {
         return res.status(400).json({ message: e.message, success: false });
@@ -81,7 +81,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const gameScore = new entities_1.GameScore(game_id, home_team_score, away_team_score);
         mikro_orm_config_1.DI.orm.em.persistLater(gameScore);
         yield mikro_orm_config_1.DI.orm.em.flush();
-        res.json({ success: true, data: gameScore });
+        return res.json({ success: true, data: gameScore });
     }
     catch (e) {
         return res.status(400).json({ message: e.message });
@@ -110,7 +110,7 @@ router.put("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         gameScore.homeTeamScore = req.body.home_team_score || gameScore.homeTeamScore;
         gameScore.awayTeamScore = req.body.away_team_score || gameScore.awayTeamScore;
         yield mikro_orm_config_1.DI.orm.em.flush();
-        res.json({ success: true, data: gameScore });
+        return res.json({ success: true, data: gameScore });
     }
     catch (e) {
         return res.status(400).json({ message: e.message, success: false });

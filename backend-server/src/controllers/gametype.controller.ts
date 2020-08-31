@@ -18,7 +18,7 @@ router.get("/", async (req: Request, res: Response) => {
         orderBy: { name: QueryOrder.ASC },
       }
     );
-    res.json({ success: true, data: gameTypes });
+    return res.json({ success: true, data: gameTypes });
   } catch (e) {
     return res.status(400).json({ message: e.message, success: false });
   }
@@ -32,7 +32,7 @@ router.get("/:id", async (req: Request, res: Response) => {
       return res.status(404).json({ message: "game type not found" });
     }
 
-    res.json({ success: true, data: gameType });
+    return res.json({ success: true, data: gameType });
   } catch (e) {
     return res.status(400).json({ message: e.message, success: false });
   }
@@ -50,7 +50,7 @@ router.post("/", async (req: Request, res: Response) => {
     DI.orm.em.persistLater(gameType);
     await DI.orm.em.flush();
 
-    res.json({ success: true, data: gameType });
+    return res.json({ success: true, data: gameType });
   } catch (e) {
     return res.status(400).json({ message: e.message });
   }
@@ -82,7 +82,7 @@ router.put("/:id", async (req: Request, res: Response) => {
     gameType.details = req.body.details || gameType.details;
 
     await DI.orm.em.flush();
-    res.json({ success: true, data: gameType });
+    return res.json({ success: true, data: gameType });
   } catch (e) {
     return res.status(400).json({ message: e.message, success: false });
   }

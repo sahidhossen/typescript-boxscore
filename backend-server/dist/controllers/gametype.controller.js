@@ -25,7 +25,7 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             limit: 20,
             orderBy: { name: mikro_orm_1.QueryOrder.ASC },
         });
-        res.json({ success: true, data: gameTypes });
+        return res.json({ success: true, data: gameTypes });
     }
     catch (e) {
         return res.status(400).json({ message: e.message, success: false });
@@ -37,7 +37,7 @@ router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (!gameType) {
             return res.status(404).json({ message: "game type not found" });
         }
-        res.json({ success: true, data: gameType });
+        return res.json({ success: true, data: gameType });
     }
     catch (e) {
         return res.status(400).json({ message: e.message, success: false });
@@ -52,7 +52,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const gameType = new entities_1.GameType(req.body.name, req.body.details || "");
         mikro_orm_config_1.DI.orm.em.persistLater(gameType);
         yield mikro_orm_config_1.DI.orm.em.flush();
-        res.json({ success: true, data: gameType });
+        return res.json({ success: true, data: gameType });
     }
     catch (e) {
         return res.status(400).json({ message: e.message });
@@ -81,7 +81,7 @@ router.put("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         gameType.name = req.body.name || gameType.name;
         gameType.details = req.body.details || gameType.details;
         yield mikro_orm_config_1.DI.orm.em.flush();
-        res.json({ success: true, data: gameType });
+        return res.json({ success: true, data: gameType });
     }
     catch (e) {
         return res.status(400).json({ message: e.message, success: false });

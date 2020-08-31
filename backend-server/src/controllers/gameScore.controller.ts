@@ -55,7 +55,7 @@ router.get("/:game_id", async (req: Request, res: Response) => {
       await DI.orm.em.persistAndFlush(newCacheScore);
     }
 
-    res.json({ success: true, data: result });
+    return res.json({ success: true, data: result });
   } catch (e) {
     return res.status(400).json({ message: e.message, success: false });
   }
@@ -69,7 +69,7 @@ router.get("/score/:id", async (req: Request, res: Response) => {
       return res.status(404).json({ message: "game score not found" });
     }
 
-    res.json({ success: true, data: gameScore });
+    return res.json({ success: true, data: gameScore });
   } catch (e) {
     return res.status(400).json({ message: e.message, success: false });
   }
@@ -87,7 +87,7 @@ router.post("/", async (req: Request, res: Response) => {
     DI.orm.em.persistLater(gameScore);
     await DI.orm.em.flush();
 
-    res.json({ success: true, data: gameScore });
+    return res.json({ success: true, data: gameScore });
   } catch (e) {
     return res.status(400).json({ message: e.message });
   }
@@ -119,7 +119,7 @@ router.put("/:id", async (req: Request, res: Response) => {
     gameScore.awayTeamScore = req.body.away_team_score || gameScore.awayTeamScore;
 
     await DI.orm.em.flush();
-    res.json({ success: true, data: gameScore });
+    return res.json({ success: true, data: gameScore });
   } catch (e) {
     return res.status(400).json({ message: e.message, success: false });
   }
